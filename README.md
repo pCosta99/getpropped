@@ -10,4 +10,4 @@ You haven't done anything truly remarkable but still wanna feel the prop power? 
 
 Fortunately, everyone is entitled to **1 PRP**!! Just go to the faucet and claim it!!
 
-[Get propped, now!]()
+[Get propped, now!](https://getproppedm8.herokuapp.com/)
