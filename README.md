@@ -29,4 +29,4 @@ I'm not particularly experienced with Vue/React so I thought I would choose some
 
 BUTTT, server-side rendering definitely lacks a bit to interact with blockchains since you will end up using mostly JS anyway.
 
-I used mostly stimulus to handle all the interactions with my view but it definitely wasn't an optimal choice. This brings Vue.js to my learnlist and I might remake the Dapp as a learning experience!
+I used mostly Stimulus.js to handle all the interactions with my view but it definitely wasn't an optimal choice. This brings Vue.js to my learnlist and I might remake the Dapp as a learning experience!
