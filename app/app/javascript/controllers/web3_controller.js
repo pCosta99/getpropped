@@ -123,7 +123,7 @@ export default class extends Controller {
     event.preventDefault();
     ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x250' }]
+      params: [{ chainId: '0xfa' }]
     }).then(function(value){
       // Reload the window to display everything properly
       window.location.reload();
@@ -133,8 +133,15 @@ export default class extends Controller {
         ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [ {
+              chainName: 'Fantom Opera',
               chainId: '0xfa',
               rpcUrls: ['https://rpc.ftm.tools/'],
+              blockExplorerUrls: ['https://ftmscan.com/'],
+              nativeCurrency: {
+                name: 'Fantom',
+                symbol: 'FTM',
+                decimals: 18
+              }
             } ]
         }).catch(function(error){
           console.log(error);
