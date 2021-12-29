@@ -108,7 +108,7 @@ export default class extends Controller {
     await this.contractWithSigner.getPropped()
           .then(function(resp){
             button_addPRPToMetamask();
-            proppedDivTarget.style.visibility = "visible";
+            this.proppedDivTarget.style.visibility = "visible";
             console.log("welcome m8");
           }).catch(function(error){
             console.log(error);
