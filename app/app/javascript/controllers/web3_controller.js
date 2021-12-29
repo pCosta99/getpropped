@@ -9,6 +9,7 @@ export default class extends Controller {
     "proppedDiv"
   ];
 
+  tokenContractAddress = "0x9D35FFf07fA008399249AC58470e39E14f1f27B2";
   contractWithSigner = null;
 
   async connect() {
@@ -36,13 +37,12 @@ export default class extends Controller {
   }
 
   async handleConnected(){
-    this.disconnectedDivTarget.style.visibility = "hidden";
+    this.disconnectedDivTarget.style.visibility = "visible";
 
-    const tokenContractAddress = "0x9D35FFf07fA008399249AC58470e39E14f1f27B2";
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract(tokenContractAddress, prpABI, provider);
+    const contract = new ethers.Contract(this.tokenContractAddress, prpABI, provider);
     const address = ethereum.selectedAddress;
 
     //const balance = await provider.getBalance(address);
@@ -54,11 +54,6 @@ export default class extends Controller {
     //this.prpBalanceTarget.textContent = ethers.utils.formatUnits(prpBalance, 0);
 
     await this.handleProps(contract, signer);
-  }
-
-  greet(event){
-    event.preventDefault();
-    console.log("abc");
   }
 
   button_connectToMM(){
@@ -85,11 +80,16 @@ export default class extends Controller {
     this.actionButtonTarget.style.visibility = "hidden"
   }
 
+  button_addPRPToMetamask() {
+    this.actionButtonTarget.dataset["action"] = "web3#addPRPToMetaMask"
+    this.actionButtonTarget.textContent = "Add PRP to MetaMask"
+    this.actionButtonTarget.style.visibility = "visible"
+  }
+
   async handleProps(contract, signer){
     const hasBeenPropped = await this.contractWithSigner.wasPropped();
 
     if(hasBeenPropped){
-      this.button_connectedToFantom()
       this.alreadyPropped()
     } else {
       this.button_getPropped();
@@ -97,6 +97,7 @@ export default class extends Controller {
   }
 
   alreadyPropped(){
+    this.button_addPRPToMetamask()
     this.proppedDivTarget.style.visibility = "visible";
   }
 
@@ -106,12 +107,33 @@ export default class extends Controller {
     const proppedDivTarget = this.proppedDivTarget;
     await this.contractWithSigner.getPropped()
           .then(function(resp){
-            actionButtonTarget.style.visibility = "hidden";
+            button_addPRPToMetamask();
             proppedDivTarget.style.visibility = "visible";
             console.log("welcome m8");
           }).catch(function(error){
             console.log(error);
           });
+  }
+
+  addPRPToMetaMask(event){
+    event.preventDefault();
+    ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: this.tokenContractAddress,
+          symbol: 'PRP',
+          decimals: 0
+        }
+      }
+    }).then((success) => {
+        if(success){
+          button_connectedToFantom();
+        } else {
+          console.log("Something went wrong!");
+        }
+      }).catch(console.error);
   }
 
   connectToMM(event){
