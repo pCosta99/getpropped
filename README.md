@@ -12,6 +12,19 @@ Fortunately, everyone is entitled to **1 PRP**!! Just go to the faucet and claim
 
 [Get propped, now!](https://getproppedm8.herokuapp.com/)
 
+## Failures
+Well, unfortunately there's some stuff that could be largely better. 
+
+The main one I've found so far was that I could have **added an event to the contract that would be emitted on the ``getPropped`` function.**
+
+This would have allowed me to answer to that event on the frontend and trigger the event that happens (not spoiling it) only then.
+
+Another thing **would be ``wasPropped`` not checking the current balance** since that breaks the desired effect of giving **PRP** to any non-holder.
+
+A holder that got rid of the coin (which is now possible since there's liquidity for this on Spookyswap) shouldn't be able to reclaim it using the faucet!
+
+I'll add this improvements as commentaries on the solidity contract soon!
+
 ## Motivation
 I wanted to give Solidity a try, so I did! 
 Of course this is a super simple project that barely scratched anything interesting, but it's a start. 💯
